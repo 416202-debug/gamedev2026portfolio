@@ -13,50 +13,40 @@ Object Oriented game using images and sounds with multiple levels and powerups..
 
 #### How to Run
 Built with Processing.
-Processing version: [Your version]
+Processing version: 4.0.1
 Main sketch and project folder: [Names]
-Required libraries, if any: [List or write None]
+Required libraries: gifAnimations, Sound
 
-[Explain how to open and run the project.]
+
 #### Controls
-[List each key or mouse action and what it does.]
+Move mouse to control movement.
+Click mouse to shoot laser.
 
-### Required Foundation — 2 Points
+#### Three Power-Up Types
+1. Health — Add the amount of health shown. Max is 200
+2. Laser Harm — The harm caused by the laser increases by 10
+3. Wind — Rock max speed decreases by 1, minimum 5
 
-### Three Power-Up Types
-1. [Name] — [Effect, duration if relevant, and status]
-2. [Name] — [Effect, duration if relevant, and status]
-3. [Name] — [Effect, duration if relevant, and status]
 
-### Levels
-[Explain what triggers progression and what changes
-between levels. State the current implementation status.]
-
-### My Chosen Additional Systems
+#### My Chosen Additional Systems
 Choose at least two:
-- Firing enemies
+- Levels
 - Boss
-- Game statistics
-- Game-over screen with saved results
 
-My choices:
-1. [System — intended behavior and current status]
-2. [System — intended behavior and current status]
 
-## Testing
+#### Testing
 Test actions:
 Expected result:
 Actual result:
 
-## Project Files and Assets
+#### Project Files and Assets
 [Identify the main sketch, other tabs,
 and image/audio folders.]
 
 Asset credits:
-[Credit outside assets and identify assets you created.]
+ Graphics: All original
+ Sounds: From 
 
-## Known Issues
-[Describe unfinished behavior or known bugs honestly.]
 
-## Next Development Task
-[Name one specific behavior you will build or fix next.]
+#### Next Development Task
+Build boss
