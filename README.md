@@ -4,6 +4,6 @@
 
 ### SpaceCat
 
-![SpaceCat](url)
+![SpaceCat](https://github.com/416202-debug/gamedev2026portfolio/blob/main/images/spacegame.png?raw=true)
 
 [Link for Source Code](url)
