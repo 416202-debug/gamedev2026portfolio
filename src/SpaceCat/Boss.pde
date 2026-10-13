@@ -1,8 +1,9 @@
 class Boss{
 //member variables
-int x, y, w, h, health, speed, duration, lvl;
+int x, y, w, h, health, yspeed,xspeed, duration, lvl;
 boolean isHit; //<>//
 PImage b1;
+
 //constructor
 Boss(int x, int y, int lvl) {
  this.x = x;
@@ -11,7 +12,8 @@ this.lvl = lvl;
 w = 120;
 h = 120;
 health = 10000; 
-speed = 1;
+yspeed = 0;
+xspeed = 1;
 duration = 20000;
 isHit = false;
 if(lvl == 1){
@@ -32,7 +34,8 @@ void display() {
  text(health, x, y);
 }
 void move(){
-x += speed;
+x += xspeed;
+y -= yspeed;
 }
 boolean isOffScreen() {
     if (x>width+100) {

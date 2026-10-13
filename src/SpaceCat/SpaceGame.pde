@@ -1,7 +1,7 @@
 //Sarah Zhang || sep 17, 26 || 3B
 import gifAnimation.*;
 import processing.sound.*;
-SoundFile laser1, rockbreak, impact, enemyhit;
+SoundFile laser1, rockbreak, impact, enemyhit, whine;
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 ArrayList<Laser> lasers = new ArrayList<Laser>();
 ArrayList<BossLaser> blasers = new ArrayList<BossLaser>();
@@ -49,6 +49,7 @@ void setup() {
   rockbreak = new SoundFile (this,"rockbreak.mp3");
   impact = new SoundFile (this, "impact.mp3");
   enemyhit = new SoundFile (this, "enemyhit.mp3");
+  whine = new SoundFile(this, "Dog.mp3");
 }
 void draw() {
   
@@ -165,8 +166,11 @@ void draw() {
           
           if (boss01.health<0) {
             score += 1000000;
+            boss01.xspeed = 0;
+            boss01.yspeed = 1;
             //Add Sound
             rockbreak.play();
+            whine.play();
           
           }
           //increment score
@@ -239,11 +243,11 @@ void infoPanel() {
   rectMode(CORNER);
   rect(0, 20, width, 40);
   fill(255);
-  text("Score: "+ score, 20, 35);
-  text("Healthl: "+ s1.health, 100, 35);
-  text("Rocks Broken: "+ enemyCount, 200, 35);
-  text("Rocks Passed: "+ enemiesOffScreen, 300, 35);
-  text("Laser Damage: "+ lharm, 400, 35);
+  text("Score: "+ score, 10, 35);
+  text("Health: "+ s1.health, 70, 35);
+  text("Rocks Broken: "+ enemyCount, 155, 35);
+  text("Rocks Passed: "+ enemiesOffScreen, 270, 35);
+  text("Laser Damage: "+ lharm, 380, 35);
 }
 
 void startScreen() {
