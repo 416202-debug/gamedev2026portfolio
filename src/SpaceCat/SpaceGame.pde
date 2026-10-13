@@ -4,6 +4,7 @@ import processing.sound.*;
 SoundFile laser1, rockbreak, impact, enemyhit;
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 ArrayList<Laser> lasers = new ArrayList<Laser>();
+ArrayList<BossLaser> blasers = new ArrayList<BossLaser>();
 ArrayList<PowerUp> powUps = new ArrayList<PowerUp>();
 int score, enemyCount, enemiesOffScreen, lharm, level, emaxSpeed;
 boolean play;
@@ -12,6 +13,7 @@ Boss boss01;
 Timer enemyDist, pDist;
 Enemy e;
 Laser l;
+BossLaser b;
 PowerUp p;
 Gif   rbackground;
 PImage sbackground, ebackground;
@@ -22,6 +24,8 @@ void setup() {
   size(500, 500);
   enemies.add(new Enemy(int(random(width)), -60, emaxSpeed));
   powUps.add(new PowerUp(int(random(width)), -60));
+  boss01 = new Boss(-120, 70, 1);
+ blasers.add(new BossLaser(boss01.x, boss01.y));
   lasers.add(new Laser(int(random(width)), -60, lharm));
   l = new Laser(int(random(width)), -60, lharm);
   enemyDist = new Timer(2000);
@@ -29,7 +33,7 @@ void setup() {
   pDist = new Timer(3000);
   pDist.start();
   s1 = new Ship(this);
-  boss01 = new Boss(-120, 70, 1);
+  
   score = 0;
   enemyCount = 0;
   enemiesOffScreen = 0;
@@ -47,10 +51,14 @@ void setup() {
   enemyhit = new SoundFile (this, "enemyhit.mp3");
 }
 void draw() {
+  
   noCursor();
   if (play == false) {
     startScreen();
   } else {
+     if(random(60)<2){
+    blasers.add(new BossLaser(boss01.x, boss01.y));
+  }
     imageMode(CENTER);
     image(rbackground, width/2, height/2, width, height);
     rbackground.play();
@@ -95,8 +103,9 @@ void draw() {
       println(enemies.size());
     }
     
+   if(enemyCount>9){
     boss01.display();
-    boss01.move();
+    boss01.move();}
     //Displays and moves power ups
     for (int i = 0; i < powUps.size(); i++) {
       PowerUp p = powUps.get(i);
@@ -110,7 +119,7 @@ void draw() {
             s1.health = 200;
           }else {
           s1.health += p.health;}
-        } else if(p.type == 's'){
+        } else if(p.type == 'd'){
           lharm = lharm+ p.harm;
           //s1.turretCount = 2;
         }else{
@@ -127,7 +136,7 @@ void draw() {
       println(enemies.size());
     }
     //display and move lasers and detect rock collision
-    for (int i = 0; i < lasers.size(); i++) {
+        for (int i = 0; i < lasers.size(); i++) {
       Laser l = lasers.get(i);
       l.display();
       l.move();
@@ -139,19 +148,65 @@ void draw() {
           //deduct rock health
           e.health -= l.harm;
           enemyhit.play();
-          if (e.health<0) {
+        if (e.health<0) {
             score += e.size;
             //Add Sound
             rockbreak.play();
             enemies.remove(e);
           }
+        }
+          if (l.isHitb(boss01)) {
+          //remove laser
+          lasers.remove(l);
+          //deduct rock health
+          boss01.health -= l.harm;
+          enemyhit.play();
+          
+          
+          if (boss01.health<0) {
+            score += 1000000;
+            //Add Sound
+            rockbreak.play();
+          
+          }
           //increment score
         }
-      }
+      
       if (l.isOffScreen() == true) {
         lasers.remove(l);
       }
       println(lasers.size());
+    }
+        }
+        
+         if (boss01.isOffScreen() == true) {
+         boss01.x = -120;
+         boss01.y = 70;
+         }
+    
+  
+    //Boss lasers
+      for ( int i = 0; i < blasers.size(); i++) {
+      BossLaser b = blasers.get(i);
+      b.display();
+      b.move();
+      if (b.isHit(s1)) {
+          //remove laser
+          blasers.remove(b);
+          //deduct rock health
+          s1.health -= b.harm;
+          enemyhit.play();
+          if (s1.health<0) {
+            //Add Sound
+            rockbreak.play();
+          }
+          //increment score
+        }
+      
+      if (b.isOffScreen() == true) {
+        blasers.remove(b);
+      }
+      println(blasers.size());
     }
 
     //for () {
@@ -163,7 +218,10 @@ void draw() {
     //game over
   }
 }
+  
 void mousePressed() {
+  if(play == false) {
+  } else {
   if(s1.turretCount == 1) {
   lasers.add(new Laser(s1.x, s1.y, lharm));
   //sound
@@ -175,7 +233,7 @@ void mousePressed() {
   laser1.play();
 }
 }
-
+}
 void infoPanel() {
   fill(127, 127);
   rectMode(CORNER);
@@ -183,7 +241,7 @@ void infoPanel() {
   fill(255);
   text("Score: "+ score, 20, 35);
   text("Healthl: "+ s1.health, 100, 35);
-  text("Rock Count: "+ enemyCount, 200, 35);
+  text("Rocks Broken: "+ enemyCount, 200, 35);
   text("Rocks Passed: "+ enemiesOffScreen, 300, 35);
   text("Laser Damage: "+ lharm, 400, 35);
 }

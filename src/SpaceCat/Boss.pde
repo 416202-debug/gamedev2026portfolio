@@ -1,7 +1,7 @@
 class Boss{
 //member variables
 int x, y, w, h, health, speed, duration, lvl;
-boolean isHit;
+boolean isHit; //<>//
 PImage b1;
 //constructor
 Boss(int x, int y, int lvl) {
@@ -15,9 +15,9 @@ speed = 1;
 duration = 20000;
 isHit = false;
 if(lvl == 1){
-b1 = loadImage("lvl1Boss.png");
+b1 = loadImage("Boss.png");
 }else if(lvl == 2){
-b1 = loadImage("lvl1Boss.png");
+b1 = loadImage("Boss.png");
 
 }
 }
@@ -25,13 +25,20 @@ b1 = loadImage("lvl1Boss.png");
 // Display
 void display() {
   //todo: replace with image
-  //image(b1, x, y);
- fill(255, 6, 88);
- ellipse(x, y, w, h);
- fill(255);
+  image(b1, x, y);
+ //fill(255, 6, 88);
+ //ellipse(x, y, w, h);
+ //fill(255);
  text(health, x, y);
 }
 void move(){
 x += speed;
 }
+boolean isOffScreen() {
+    if (x>width+100) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

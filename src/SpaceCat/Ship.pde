@@ -10,7 +10,7 @@ class Ship {
 
   x = width/2;
   y = height/2;
-  health = 100;
+  health = 200;
   ship01 = new Gif(app, "player.gif");
   turretCount = 1;
  ship01.loop();

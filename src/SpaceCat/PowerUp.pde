@@ -38,6 +38,7 @@ if(type == 'h'){
   text("Laser Harm + "+harm, x, y);
 }else{
 ellipse(x, y, size, size);
+text("Rock speed - 1 ", x, y);
 }
 //ellipse(x, y, size, size);
 //fill (255);

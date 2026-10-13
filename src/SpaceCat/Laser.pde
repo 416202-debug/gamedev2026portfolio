@@ -39,4 +39,12 @@ class Laser {
       return false;
     }
   }
+  boolean isHitb(Boss boss01) {
+    float d = dist(x, y, boss01.x, boss01.y);
+    if (d<50) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
